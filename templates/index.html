@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>CyberWatch</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1> CyberWatch</h1>
+        <p>Collez un lien pour vérifier s'il est sûr</p>
+        
+        <form action="/check" method="POST">
+            <input 
+                type="text" 
+                name="url" 
+                placeholder="Collez le lien ici..."
+                required
+            >
+            <button type="submit">Vérifier 🔍</button>
+        </form>
+
+        {% if result %}
+        <div class="result" style="border-color: {{color}}">
+            <h2 style="color: {{color}}">{{result}}</h2>
+            <p>{{message}}</p>
+            <p><strong>Lien vérifié:</strong> {{url}}</p>
+            
+            {% if reasons %}
+            <h3>Raisons:</h3>
+            <ul>
+                {% for reason in reasons %}
+                <li>⚠️ {{reason}}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
